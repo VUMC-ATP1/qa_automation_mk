@@ -1,3 +1,5 @@
+package mavenTestNGHomework;
+
 public class Calculator {
     int result;
 
@@ -23,11 +25,6 @@ public class Calculator {
     public float divide(int num1, int num2) {
         result = num1 / num2;
         return result;
-    }
-
-    public static void main(String[] args) {
-        Calculator c = new Calculator();
-        System.out.println(c.divide(8,2));
     }
 
 }
