@@ -17,17 +17,18 @@ public class LoginPage {
         return driver.findElement(firstNameField);
     }
     public void setFirstNameField (String firstName) {
-        driver.findElement(firstNameField).sendKeys(firstName);
+        getFirstNameField().sendKeys(firstName);
     }
 
     public WebElement getLastNameField() {
         return driver.findElement(lastNameField);
     }
     public void setLastNameField(String lastName) {
-        driver.findElement(lastNameField).sendKeys(lastName);
+        getLastNameField().sendKeys(lastName);
     }
+    public WebElement getLogin() { return driver.findElement(login);}
     public void login (){
-        driver.findElement(login).click();
+        getLogin().click();
     }
 
 }

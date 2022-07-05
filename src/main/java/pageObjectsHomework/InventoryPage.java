@@ -9,11 +9,14 @@ public class InventoryPage {
     public InventoryPage(WebDriver driver) {
         this.driver = driver;
     }
-    private final By pickBackPack = By.id("add-to-cart-sauce-labs-backpack");
+    private final By backPackButton = By.id("add-to-cart-sauce-labs-backpack");
     private final By cartPage = By.className("shopping_cart_link");
+    public WebElement getBackPackButton() {
+        return driver.findElement(backPackButton);
+    }
 
-    public void pickBackPack() {
-        driver.findElement(pickBackPack).click();
+    public void clickBackPackButton() {
+        getBackPackButton().click();
     }
     public void clickCartPage() {
         driver.findElement(cartPage).click();

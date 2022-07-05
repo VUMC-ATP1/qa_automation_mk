@@ -12,7 +12,7 @@ public class CheckoutPage {
     private final By firstNameFieldCheckout = By.id("first-name");
     private final By lastNameFieldCheckout = By.id("last-name");
     private final By postalCodeFieldCheckout = By.id("postal-code");
-    private final By inventoryItemName = By.id("item_4_title_link");
+    private final By inventoryItemName = By.className("inventory_item_name");
     private final By continueButton = By.id("continue");
     private final By errorField = By.xpath("//h3");
 
