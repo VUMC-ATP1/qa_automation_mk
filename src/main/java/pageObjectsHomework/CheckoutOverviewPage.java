@@ -14,8 +14,8 @@ public class CheckoutOverviewPage {
     public void finishCheckout() {
         driver.findElement(finishButton).click();
     }
-    public WebElement getinventoryItemName() {return driver.findElement(inventoryItemName);}
-    public String getinventoryItemNameText() {return getinventoryItemName().getText();}
+    public WebElement getInventoryItemName() {return driver.findElement(inventoryItemName);}
+    public String getInventoryItemNameText() {return getInventoryItemName().getText();}
     public void clickBackHome() {
         driver.findElement(backHomeButton).click();
     }
