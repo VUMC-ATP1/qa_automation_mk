@@ -1,5 +1,6 @@
 package seleniumHomework;
 
+import com.sun.xml.internal.ws.policy.AssertionSet;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -9,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pageObjectsHomework.*;
+
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -52,7 +54,8 @@ public class sauceDemoTests {
         checkoutSuccessPage = new CheckoutSuccessPage(driver);
         // 1. Navigēt uz saiti https://www.saucedemo.com/
         driver.get(SAUCE_LOGIN_PAGE);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().window().fullscreen();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     @Test
@@ -68,11 +71,7 @@ public class sauceDemoTests {
         // 5. Doties uz grozu
         inventoryPage.clickCartPage();
         // 6. Pārbaudīt, kā šī prece ir grozā
-        try {
-            Assert.assertEquals(cartPage.checkCart(), PRODUCT_NAME);
-        } catch (Exception e) {
-            log.info("Test for checking product in the cart failed");
-        }
+        Assert.assertEquals(cartPage.checkCart(), PRODUCT_NAME);
         // 7. Doties uz Checkout
         cartPage.startCheckout();
         // 8. Ievadīt vārdu/uzvārdu/pasta indeksu
@@ -80,29 +79,12 @@ public class sauceDemoTests {
         checkoutPage.setLastNameFieldCheckout(LASTNAME_CHECKOUT);
         checkoutPage.setPostalCodeFieldCheckout(POSTALCODE_CHECKOUT);
         // 9. Doties uz Checkout overview lapu, pārbaudīt datus
-        try {
-            Assert.assertEquals(checkoutPage.getInventoryItemNameText(),PRODUCT_NAME);
-        } catch (Exception e) {
-            log.info("Test for checking product in the checkout page failed");
-        }
         checkoutPage.continueCheckout();
-        try {
-            Assert.assertEquals(checkoutOverviewPage.getInventoryItemNameText(),PRODUCT_NAME);
-        } catch (Exception e) {
-            log.info("Test for checking product in the checkout overview failed");
-        }
+        Assert.assertEquals(checkoutPage.getInventoryItemNameText(), PRODUCT_NAME);
         // 10. Doties uz finish lapu un pārbaudīt vai viss bija veiksmīgi
         checkoutOverviewPage.finishCheckout();
-        try {
-            Assert.assertEquals(driver.getCurrentUrl(),CHECKOUT_COMPLETE);
-        } catch (Exception e) {
-            log.info("Test for checking correct redirect URL failed");
-        }
-        try {
-            Assert.assertEquals(checkoutSuccessPage.getSuccessCheckoutText(),SUCCESS_MESSAGE);
-        } catch (Exception e) {
-            log.info("Test for checking correct success message failed");
-        }
+        Assert.assertEquals(driver.getCurrentUrl(), CHECKOUT_COMPLETE);
+        Assert.assertEquals(checkoutSuccessPage.getSuccessCheckoutText(), SUCCESS_MESSAGE);
         // 11. Doties atpakaļ uz pirmo lapu ar pogu 'Back Home'
         checkoutSuccessPage.clickBackHomeButton();
     }
@@ -119,6 +101,11 @@ public class sauceDemoTests {
         cartPage.startCheckout();
         // 5. Pārbaudīt, ka FirstName/LastName/Zip code ir obligāts
         Assert.assertTrue(checkoutPage.isInputRequired(checkoutPage.getFirstNameFieldCheckout(), "required"));
+        /*
+        alternative?
+        String required = checkoutPage.getFirstNameFieldCheckout().getAttribute("required");
+        Assert.assertNotNull(required);
+         */
         Assert.assertTrue(checkoutPage.isInputRequired(checkoutPage.getLastNameFieldCheckout(), "required"));
         Assert.assertTrue(checkoutPage.isInputRequired(checkoutPage.getPostalCodeFieldCheckout(), "required"));
         // 6. Pārbaudīt, ka forma parāda pareizu kļūdas paziņojumu pie katra neievadītā lauka
