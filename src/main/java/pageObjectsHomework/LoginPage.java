@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 
 public class LoginPage {
     private final WebDriver driver;
+
+    private final String SAUCE_INVENTORY_PAGE = "https://www.saucedemo.com/inventory.html";
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }

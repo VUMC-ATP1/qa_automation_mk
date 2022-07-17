@@ -14,7 +14,7 @@ public class CheckoutPage {
     private final By postalCodeFieldCheckout = By.id("postal-code");
     private final By inventoryItemName = By.xpath("//*[@class=\"inventory_item_name\"]");
     private final By continueButton = By.id("continue");
-    private final By errorField = By.xpath("//h3");
+    private final By errorField = By.xpath("//h3[@data-test='error']");
 
     public WebElement getFirstNameFieldCheckout() {
         return driver.findElement(firstNameFieldCheckout);
